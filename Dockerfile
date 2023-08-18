@@ -2,7 +2,7 @@ ARG CUDA_VERSION=11.4.3
 FROM nvidia/cuda:${CUDA_VERSION}-cudnn8-runtime-ubuntu20.04 as cuda_image
 FROM ubuntu:20.04
 VOLUME /var/lib/docker
-ARG TARGETPLATFORM
+#ARG TARGETPLATFORM
 # this is required for onnx to find cuda
 COPY --from=cuda_image /usr/local/cuda/ /usr/local/cuda/
 WORKDIR /app
@@ -24,7 +24,7 @@ RUN curl https://raw.githubusercontent.com/nltk/nltk_data/gh-pages/packages/toke
 RUN unzip /root/nltk_data/tokenizers/punkt.zip  -d /root/nltk_data/tokenizers/
 
 # TODO: up the RAM
-RUN echo Target platform is "$TARGETPLATFORM"
+#RUN echo Target platform is "$TARGETPLATFORM"
 COPY requirements.txt requirements.txt
 RUN pip3 install --no-cache-dir -r requirements.txt
 COPY scripts scripts
